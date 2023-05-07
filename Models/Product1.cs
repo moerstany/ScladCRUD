@@ -29,14 +29,12 @@ namespace ScladCRUD.Models
         [StringLength(50)]
         public string Articul { get; set; }
         [Column("cost")]
-        [Precision(9, 2)]
-        public decimal Cost { get; set; }
+        public double Cost { get; set; }
         [Column("product_pic")]
         [StringLength(900)]
         public string ProductPic { get; set; }
         [Column("margin")]
-        [Precision(2, 2)]
-        public decimal Margin { get; set; }
+        public double Margin { get; set; }
 
         [InverseProperty("IdProductNavigation")]
         public virtual ICollection<Catalog1> Catalog1 { get; set; }

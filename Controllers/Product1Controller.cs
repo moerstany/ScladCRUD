@@ -1,14 +1,23 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
+using ScladCRUD.Models;
 
 namespace ScladCRUD.Controllers
 {
     public class Product1Controller : Controller
     {
+        private readonly ScladContext _context;
+        public Product1Controller(ScladContext context)
+        {
+            _context = context;
+        }
         // GET: Product1Controller
         public ActionResult Index()
         {
-            return View();
+            List<Product1> products;
+            products = _context.Product1.ToList();
+            return View(products);
         }
 
         // GET: Product1Controller/Details/5
@@ -17,55 +26,66 @@ namespace ScladCRUD.Controllers
             return View();
         }
 
-        // GET: Product1Controller/Create
-        public ActionResult Create()
+        // GET: ProductController/Create
+        [HttpGet]
+        public IActionResult Create()
         {
-            return View();
+            Product1 product = new Product1();
+
+            return View(product);
         }
 
-        // POST: Product1Controller/Create
+        // POST: ProductController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public IActionResult Create(Product1 product)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            _context.Add(product);
+            _context.SaveChanges();
+            return RedirectToAction("index");
         }
 
-        // GET: Product1Controller/Edit/5
+        // GET: ProductController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+
+            Product1 product = _context.Product1.Find(id);
+            return View(product);
         }
 
-        // POST: Product1Controller/Edit/5
+        // POST: FacturaController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(Product1 product)
         {
             try
             {
+                Product1 pr = _context.Product1.Find(product.IdProduct);
+                pr.IdProduct = product.IdProduct;
+                pr.ProductName = product.ProductName;
+                pr.Articul = product.Articul;
+                pr.Cost = product.Cost;
+                pr.ProductPic = product.ProductPic;
+                pr.Margin = product.Margin;
+                _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
+
                 return View();
             }
         }
 
-        // GET: Product1Controller/Delete/5
+        // GET: ProductController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            _context.Product1.Remove(_context.Product1.Find(id));
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
         }
 
-        // POST: Product1Controller/Delete/5
+        // POST: ProductController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
