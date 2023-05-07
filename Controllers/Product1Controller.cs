@@ -42,6 +42,7 @@ namespace ScladCRUD.Controllers
         {
             _context.Add(product);
             _context.SaveChanges();
+            TempData["AlertMessage"] = "Продукт Создан!";
             return RedirectToAction("index");
         }
 
@@ -68,6 +69,7 @@ namespace ScladCRUD.Controllers
                 pr.ProductPic = product.ProductPic;
                 pr.Margin = product.Margin;
                 _context.SaveChanges();
+                TempData["AlertMessage"] = "Продукт изменен!";
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -82,6 +84,7 @@ namespace ScladCRUD.Controllers
         {
             _context.Product1.Remove(_context.Product1.Find(id));
             _context.SaveChanges();
+            TempData["AlertMessage"] = "Продукт удален!";
             return RedirectToAction(nameof(Index));
         }
 

@@ -3,11 +3,19 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Products</h1>
+<h1>Продукты</h1>
 
 <p>
     <a href="@Url.Action("Create","Product1","Product1")" class="btn btn-outline-secondary">Создать</a>
 </p>
+@if (@TempData["AlertMessage"] != null)
+{
+  <div class="allert alert-secondary">
+    <strong>Ура! </strong>@TempData["AlertMessage"]
+</div>  
+}
+<br />
+
 <table  class="table table-success table-striped opacity-75 text-black"">
     <thead>
         <tr>
