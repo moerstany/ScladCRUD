@@ -8,25 +8,27 @@
 <p>
     <a href="@Url.Action("Create","Product1","Product1")" class="btn btn-outline-secondary">Создать</a>
 </p>
-<table class="table">
+<table  class="table table-success table-striped opacity-75 text-black"">
     <thead>
         <tr>
+            <th scope ="col">
+                Продукт
+            </th scope ="col">
             <th>
-                @Html.DisplayNameFor(model => model.ProductName)
+                Артикул
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Articul)
+            <th scope ="col">
+                Стоимость
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cost)
+            <th scope ="col">
+                Торговая наценка
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Margin)
+            <th scope ="col">
+                Изображение
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductPic)
+             <th scope ="col">
+                Изменение
             </th>
-            
         </tr>
     </thead>
     <tbody>

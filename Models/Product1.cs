@@ -29,12 +29,12 @@ namespace ScladCRUD.Models
         [StringLength(50)]
         public string Articul { get; set; }
         [Column("cost")]
-        public double Cost { get; set; }
+        public int Cost { get; set; }
         [Column("product_pic")]
         [StringLength(900)]
         public string ProductPic { get; set; }
         [Column("margin")]
-        public double Margin { get; set; }
+        public int Margin { get; set; }
 
         [InverseProperty("IdProductNavigation")]
         public virtual ICollection<Catalog1> Catalog1 { get; set; }
