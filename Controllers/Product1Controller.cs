@@ -13,10 +13,33 @@ namespace ScladCRUD.Controllers
             _context = context;
         }
         // GET: Product1Controller
-        public ActionResult Index()
+        public ActionResult Index(string searchBy, string searchValue)
         {
             List<Product1> products;
             products = _context.Product1.ToList();
+            if (string.IsNullOrEmpty(searchValue))
+            {
+                TempData["InfoMessage"] = "Введите значение для поиска";
+                return View(products);
+            }
+            else
+            {
+                if(searchBy.ToLower() == "productname")
+                {
+                    var searchByProductName = products.Where(p => p.ProductName.ToLower().Contains(searchValue.ToLower()));
+                    return View(searchByProductName);
+                }
+                else if (searchBy.ToLower() == "articul")
+                {
+                    var searchByProductArticul = products.Where(p => p.Articul.ToLower().Contains(searchValue.ToLower()));
+                    return View(searchByProductArticul);
+                }
+                else if (searchBy.ToLower() == "cost")
+                {
+                    var searchByProductCost = products.Where(p => p.Cost==int.Parse(searchValue));
+                    return View(searchByProductCost);
+                }
+            }
             return View(products);
         }
 
