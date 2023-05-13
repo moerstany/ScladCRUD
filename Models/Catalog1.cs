@@ -15,10 +15,7 @@ namespace ScladCRUD.Models
         [Column("id_catalog")]
         public int IdCatalog { get; set; }
         
-       
-        [Column("price")]
-        public int Price { get; set; }
-
+     
         [Column("description")]
         [StringLength(500)]
         public string Description { get; set; }

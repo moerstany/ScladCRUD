@@ -1,13 +1,9 @@
-﻿@model ScladCRUD.Models.ViewModel.ListViewModel
+﻿@model IEnumerable<ScladCRUD.Models.ViewModel.ListViewModel>
 @{
     ViewData["Title"] = "Index";
-    Layout = "~/Views/Home/Index.cshtml";
+    
 }
-
-<h1>Продукты</h1>
-
-
-   
+  
 @if (@TempData["AlertMessage"] != null)
 {
   <div class="alert alert-secondary">
@@ -41,8 +37,9 @@
         </table>
     }
 </div>
+<a href="@Url.Action("Create","Catalog1","Catalog1")" class="btn btn-outline-secondary">Создать</a>
 -
-<table  class="table table-success table-striped opacity-75 text-black"">
+@*<table  class="table table-success table-striped opacity-75 text-black"">
     <thead>
         <tr>
             <th scope ="col">
@@ -66,32 +63,49 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.catalogs)
+        @foreach (var item in Model)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Product1.ProductName)
+                    @item.ProductName
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Product1.Articul)
+                    @item.Articul
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Price)
+                    @item.Price
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Description)
+                    @item.Description
                 </td>
                 <td>
-                    <img src="@Html.DisplayFor(modelItem => item.Product1.ProductPic)" width="100" height="100" alt="картинка" />
+                    <img src="@Html.DisplayFor(modelItem => item.ProductPic)" width="100" height="100" alt="картинка" />
                 </td>
                 <td> 
-                     <a href="@Url.Action("Create","Catalog1","Catalog1")" class="btn btn-outline-secondary">Создать</a>
+                     
                     |<a href="@Url.Action("Edit","Catalog1",new {@id=item.IdCatalog})" class="btn btn-outline-success">Изменить</a>
-                    |<a href="@Url.Action("Delete","Product1",new {@id=item.IdCatalog})" class="btn btn-outline-danger" onclick="return confirm('Вы правда хотите удалить товар? @item.Product1.ProductName?')">Удалить</a>
+                    |<a href="@Url.Action("Delete","Product1",new {@id=item.IdCatalog})" class="btn btn-outline-danger" onclick="return confirm('Вы правда хотите удалить товар? @item.ProductName?')">Удалить</a>
                 </td>
             </tr>
         }
     </tbody>
-</table>
+</table>*@
+<div class="row">
+		@foreach (var item in Model)
+		{
+			<div class="card p-3 m-3 col-3">
+				<img src="@item.ProductPic" class="card-img-top" alt="...">
+				<div class="card-body">
+                    <p class="card-text">Артикул: @item.Articul</p>
+					<h5 class="card-title">@item.ProductName</h5>
+					<p class="card-text">@item.Description</p>
+                    <h5 class="card-title">Цена  @item.Price  руб.</h5>
+					<a asp-action="" asp-controller="" asp-route-id="" class="btn btn-outline-secondary">Заказать</a>
+				</div>
+			</div>
+			
+		}
+
+</div>
 
 
