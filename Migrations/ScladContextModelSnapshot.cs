@@ -52,31 +52,18 @@ namespace ScladCRUD.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("IdCatalog"));
 
-                    b.Property<string>("Articul")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
-                        .HasColumnName("articul");
+                    b.Property<string>("Description")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)")
+                        .HasColumnName("description");
 
                     b.Property<int?>("IdProduct")
                         .HasColumnType("integer")
                         .HasColumnName("id_product");
 
-                    b.Property<decimal>("Price")
-                        .HasPrecision(9, 2)
-                        .HasColumnType("numeric(9,2)")
+                    b.Property<int>("Price")
+                        .HasColumnType("integer")
                         .HasColumnName("price");
-
-                    b.Property<string>("ProductName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
-                        .HasColumnName("product_name");
-
-                    b.Property<string>("ProductPic")
-                        .HasMaxLength(900)
-                        .HasColumnType("character varying(900)")
-                        .HasColumnName("product_pic");
 
                     b.HasKey("IdCatalog")
                         .HasName("catalog1_pkey");
@@ -240,14 +227,12 @@ namespace ScladCRUD.Migrations
                         .HasColumnType("character varying(50)")
                         .HasColumnName("articul");
 
-                    b.Property<decimal>("Cost")
-                        .HasPrecision(9, 2)
-                        .HasColumnType("numeric(9,2)")
+                    b.Property<int>("Cost")
+                        .HasColumnType("integer")
                         .HasColumnName("cost");
 
-                    b.Property<decimal>("Margin")
-                        .HasPrecision(2, 2)
-                        .HasColumnType("numeric(2,2)")
+                    b.Property<int>("Margin")
+                        .HasColumnType("integer")
                         .HasColumnName("margin");
 
                     b.Property<string>("ProductName")

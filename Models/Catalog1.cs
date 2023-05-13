@@ -14,25 +14,21 @@ namespace ScladCRUD.Models
         [Key]
         [Column("id_catalog")]
         public int IdCatalog { get; set; }
+        
+       
+        [Column("price")]
+        public int Price { get; set; }
+
+        [Column("description")]
+        [StringLength(500)]
+        public string Description { get; set; }
+
+        [ForeignKey("Product1")]
         [Column("id_product")]
         public int? IdProduct { get; set; }
-        [Required]
-        [Column("product_name")]
-        [StringLength(50)]
-        public string ProductName { get; set; }
-        [Required]
-        [Column("articul")]
-        [StringLength(50)]
-        public string Articul { get; set; }
-        [Column("price")]
-        [Precision(9, 2)]
-        public decimal Price { get; set; }
-        [Column("product_pic")]
-        [StringLength(900)]
-        public string ProductPic { get; set; }
 
-        [ForeignKey("IdProduct")]
         [InverseProperty("Catalog1")]
         public virtual Product1 IdProductNavigation { get; set; }
+        public Product1 Product1 { get; set; }
     }
 }

@@ -18,18 +18,17 @@ namespace ScladCRUD.Models
         {
         }
 
-        public virtual DbSet<Catalog1> Catalog1 { get; set; }
-        public virtual DbSet<Client1> Client1 { get; set; }
-        public virtual DbSet<Manager1> Manager1 { get; set; }
-        public virtual DbSet<Order1> Order1 { get; set; }
-        public virtual DbSet<Product1> Product1 { get; set; }
+        public  DbSet<Catalog1> Catalog1 { get; set; }
+        public  DbSet<Client1> Client1 { get; set; }
+        public  DbSet<Manager1> Manager1 { get; set; }
+        public  DbSet<Order1> Order1 { get; set; }
+        public  DbSet<Product1> Product1 { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseNpgsql("Host=snuffleupagus.db.elephantsql.com;Database=sjappxlr;Username=sjappxlr;Password=8pFqnAMCzYkIahI1OD7a3sHmKNY1Hyqs;Persist Security Info=True");
+#warning 
             }
         }
 
@@ -65,7 +64,7 @@ namespace ScladCRUD.Models
                 entity.HasOne(d => d.IdProductNavigation)
                     .WithMany(p => p.Catalog1)
                     .HasForeignKey(d => d.IdProduct)
-                    .OnDelete(DeleteBehavior.Cascade)
+                    .OnDelete(DeleteBehavior.Restrict)
                     .HasConstraintName("catalog1_id_product_fkey");
             });
 
@@ -93,13 +92,13 @@ namespace ScladCRUD.Models
                 entity.HasOne(d => d.IdClientNavigation)
                     .WithMany(p => p.Order1)
                     .HasForeignKey(d => d.IdClient)
-                    .OnDelete(DeleteBehavior.Cascade)
+                    .OnDelete(DeleteBehavior.Restrict)
                     .HasConstraintName("order1_id_client_fkey");
 
                 entity.HasOne(d => d.IdProductNavigation)
                     .WithMany(p => p.Order1)
                     .HasForeignKey(d => d.IdProduct)
-                    .OnDelete(DeleteBehavior.Cascade)
+                    .OnDelete(DeleteBehavior.Restrict)
                     .HasConstraintName("order1_id_product_fkey");
             });
 

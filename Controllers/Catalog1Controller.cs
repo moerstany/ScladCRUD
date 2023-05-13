@@ -1,71 +1,129 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using ScladCRUD.Migrations;
+using ScladCRUD.Models;
+using ScladCRUD.Models.ViewModel;
+using System;
+using System.Linq;
+
+
 
 namespace ScladCRUD.Controllers
 {
     public class Catalog1Controller : Controller
     {
-        // GET: Catalog1Controller
-        public ActionResult Index()
+        private readonly ScladContext _context;
+        public Catalog1Controller(ScladContext context)
         {
-            return View();
+            _context = context;
         }
 
-        // GET: Catalog1Controller/Details/5
+        // GET: Catalog1Controller
+
+        public ActionResult Index(string searchBy, string searchValue)
+        {
+            ListViewModel lvm = new ListViewModel();
+            List<Catalog1> catData = _context.Catalog1.ToList();
+            List<Product1> prData = _context.Product1.ToList();
+            lvm.products = prData;
+            lvm.catalogs = catData;
+
+            if (string.IsNullOrEmpty(searchValue))
+            {
+                TempData["InfoMessage"] = "Введите значение для поиска";
+                return View(lvm);
+            }
+            else
+            {
+                if (searchBy.ToLower() == "productname")
+                {
+                    var searchByProductName = prData.Where(p => p.ProductName.ToLower().Contains(searchValue.ToLower()));
+                    return View(searchByProductName);
+                }
+                else if (searchBy.ToLower() == "articul")
+                {
+                    var searchByProductArticul = prData.Where(p => p.Articul.ToLower().Contains(searchValue.ToLower()));
+                    return View(searchByProductArticul);
+                }
+                else if (searchBy.ToLower() == "price")
+                {
+                    var searchByProductPrice = catData.Where(p => p.Price == int.Parse(searchValue));
+                    return View(searchByProductPrice);
+                }
+            }
+            return View(lvm);
+        }
+
+        // GET: Product1Controller/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: Catalog1Controller/Create
-        public ActionResult Create()
+        // GET: ProductController/Create
+        [HttpGet]
+        public IActionResult Create()
         {
-            return View();
+            Catalog1 catalog1 = new Catalog1();
+
+            return View(catalog1);
         }
 
-        // POST: Catalog1Controller/Create
+        // POST: ProductController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public IActionResult Create(Catalog1 catalog)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            _context.Add(catalog);
+            _context.SaveChanges();
+            TempData["AlertMessage"] = "Товар Создан!";
+            return RedirectToAction("index");
         }
 
-        // GET: Catalog1Controller/Edit/5
+        /* GET: ProductController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
-        }
 
-        // POST: Catalog1Controller/Edit/5
+            Catalog1 catalog1 = _context.Catalog1.Find(id);
+            return View(catalog1);
+        }
+        /*
+        // POST: FacturaController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(Catalog1 catalog)
         {
             try
             {
+                Catalog1 cat = _context.Catalog1.Find(catalog.IdCatalog);
+                cat.IdProduct = catalog.IdProduct;
+                cat.ProductName = catalog.Product1.ProductName;
+                cat.Articul = product.Articul;
+                cat.Cost = product.Cost;
+                pr.ProductPic = product.ProductPic;
+                pr.Margin = product.Margin;
+                _context.SaveChanges();
+                TempData["AlertMessage"] = "Продукт изменен!";
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
+
                 return View();
             }
         }
-
-        // GET: Catalog1Controller/Delete/5
+        */
+        // GET: ProductController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            _context.Product1.Remove(_context.Product1.Find(id));
+            _context.SaveChanges();
+            TempData["AlertMessage"] = "Продукт удален!";
+            return RedirectToAction(nameof(Index));
         }
 
-        // POST: Catalog1Controller/Delete/5
+        // POST: ProductController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
@@ -80,4 +138,7 @@ namespace ScladCRUD.Controllers
             }
         }
     }
+    
 }
+    
+

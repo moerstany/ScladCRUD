@@ -1,7 +1,7 @@
-﻿@model IEnumerable<ScladCRUD.Models.Product1>
-
+﻿@model ScladCRUD.Models.ViewModel.ListViewModel
 @{
     ViewData["Title"] = "Index";
+    Layout = "~/Views/Home/Index.cshtml";
 }
 
 <h1>Продукты</h1>
@@ -16,7 +16,7 @@
 }
 <br />
 <div>
-    @using (Html.BeginForm("Index", "Product1", FormMethod.Get))
+    @using (Html.BeginForm("Index", "Catalog1", FormMethod.Get))
     {
         <table>
             <tr>
@@ -26,8 +26,8 @@
                     <text>Название продукта</text>
                     @Html.RadioButton("searchBy","Articul",true)
                     <text>Артикул</text>
-                    @Html.RadioButton("searchBy","Cost")
-                    <text>Стоимость</text>
+                    @Html.RadioButton("searchBy","Price")
+                    <text>Цена</text>
                 </td>
             </tr>
             <tr>
@@ -52,10 +52,10 @@
                 Артикул
             </th>
             <th scope ="col">
-                Стоимость
+                Цена
             </th>
             <th scope ="col">
-                Торговая наценка
+                Описание
             </th>
             <th scope ="col">
                 Изображение
@@ -66,31 +66,32 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.catalogs)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ProductName)
+                    @Html.DisplayFor(modelItem => item.Product1.ProductName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Articul)
+                    @Html.DisplayFor(modelItem => item.Product1.Articul)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Cost)
+                    @Html.DisplayFor(modelItem => item.Price)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Margin)
+                    @Html.DisplayFor(modelItem => item.Description)
                 </td>
                 <td>
-                    <img src="@Html.DisplayFor(modelItem => item.ProductPic)" width="100" height="100" alt="картинка" />
+                    <img src="@Html.DisplayFor(modelItem => item.Product1.ProductPic)" width="100" height="100" alt="картинка" />
                 </td>
                 <td> 
-                     <a href="@Url.Action("Create","Product1","Product1")" class="btn btn-outline-secondary">Создать</a>
-                    |<a href="@Url.Action("Edit","Product1",new {@id=item.IdProduct})" class="btn btn-outline-success">Изменить</a>
-                    |<a href="@Url.Action("Delete","Product1",new {@id=item.IdProduct})" class="btn btn-outline-danger" onclick="return confirm('Вы правда хотите удалить продукт? @item.ProductName?')">Удалить</a>
+                     <a href="@Url.Action("Create","Catalog1","Catalog1")" class="btn btn-outline-secondary">Создать</a>
+                    |<a href="@Url.Action("Edit","Catalog1",new {@id=item.IdCatalog})" class="btn btn-outline-success">Изменить</a>
+                    |<a href="@Url.Action("Delete","Product1",new {@id=item.IdCatalog})" class="btn btn-outline-danger" onclick="return confirm('Вы правда хотите удалить товар? @item.Product1.ProductName?')">Удалить</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
 
