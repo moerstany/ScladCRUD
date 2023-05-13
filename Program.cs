@@ -3,6 +3,7 @@ global using ScladCRUD.Models;
 global using ScladCRUD.Controllers;
 global using Microsoft.AspNetCore.Mvc;
 global using System;
+global using System.Security.Cryptography;
 
 var builder = WebApplication.CreateBuilder(args);
 string connection = builder.Configuration.GetConnectionString("ApiConnection");

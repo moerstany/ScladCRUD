@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using StackExchange.Redis;
 
 namespace ScladCRUD.Models
 {
@@ -34,5 +35,6 @@ namespace ScladCRUD.Models
         [Column("avatar")]
         [StringLength(900)]
         public string Avatar { get; set; }
+        public Role Role { get; set; }
     }
 }
