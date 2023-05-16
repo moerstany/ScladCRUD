@@ -41,7 +41,7 @@ namespace ScladCRUD.Models
         [Column("avatar")]
         [StringLength(900)]
         public string Avatar { get; set; }
-        public Role Role { get; set; }
+        //public Role Role { get; set; }
 
         [InverseProperty("IdClientNavigation")]
         public virtual ICollection<Order1> Order1 { get; set; }

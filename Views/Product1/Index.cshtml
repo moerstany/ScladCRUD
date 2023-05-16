@@ -41,6 +41,8 @@
         </table>
     }
 </div>
+_
+ <a href="@Url.Action("Create","Product1","Product1")" class="btn btn-outline-secondary">Создать</a>
 -
 <table  class="table table-success table-striped opacity-75 text-black"">
     <thead>
@@ -85,7 +87,7 @@
                     <img src="@Html.DisplayFor(modelItem => item.ProductPic)" width="100" height="100" alt="картинка" />
                 </td>
                 <td> 
-                     <a href="@Url.Action("Create","Product1","Product1")" class="btn btn-outline-secondary">Создать</a>
+                    
                     |<a href="@Url.Action("Edit","Product1",new {@id=item.IdProduct})" class="btn btn-outline-success">Изменить</a>
                     |<a href="@Url.Action("Delete","Product1",new {@id=item.IdProduct})" class="btn btn-outline-danger" onclick="return confirm('Вы правда хотите удалить продукт? @item.ProductName?')">Удалить</a>
                 </td>
