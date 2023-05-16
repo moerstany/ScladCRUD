@@ -4,11 +4,15 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace ScladCRUD.Models
 {
-    public partial class ScladContext : DbContext
+    public partial class ScladContext : IdentityDbContext<IdentityUser>
     {
+        
         public ScladContext()
         {
         }
@@ -23,6 +27,7 @@ namespace ScladCRUD.Models
         public  DbSet<Manager1> Manager1 { get; set; }
         public  DbSet<Order1> Order1 { get; set; }
         public  DbSet<Product1> Product1 { get; set; }
+         
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -109,7 +114,7 @@ namespace ScladCRUD.Models
 
                 entity.Property(e => e.IdProduct).UseIdentityAlwaysColumn();
             });
-
+            base.OnModelCreating(modelBuilder);
             OnModelCreatingPartial(modelBuilder);
         }
 

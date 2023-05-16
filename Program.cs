@@ -9,6 +9,8 @@ global using System.Text;
 global using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 
+
+
 var builder = WebApplication.CreateBuilder(args);
 string connection = builder.Configuration.GetConnectionString("ApiConnection");
 
