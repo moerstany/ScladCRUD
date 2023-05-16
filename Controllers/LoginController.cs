@@ -4,30 +4,47 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Identity;
 
 namespace ScladCRUD.Controllers
 {
-    [Authorize]
-    [Route("api/[controller]")]
-    [ApiController]
+    
     public class LoginController : ControllerBase
     {
         private readonly IConfiguration _config;
+        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public LoginController(IConfiguration config)
+        public LoginController(IConfiguration config,SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager)
         {
             _config = config;
+            _signInManager = signInManager;
+            _userManager = userManager;
         }
         [AllowAnonymous]
         [HttpPost]
         public IActionResult Login([FromBody] LoginModel login)
         {
-            if (login.UserName == "3" && login.Password =="2")
+            var user = Authenticate(login.UserName, login.Password);
+            if (user.Result != null)
             {
                 var token = GenerateToken(login.UserName);
                 return Ok(token);
             }
             return BadRequest("Login Failed");
+        }
+        private async Task <IdentityUser?> Authenticate (string userName, string Password)
+        {
+            var result = await _signInManager.PasswordSignInAsync(userName,Password,false,lockoutOnFailure: false);
+            if (result.Succeeded)
+            {
+                var currentUser = await _userManager.FindByNameAsync(userName);
+                if (currentUser != null)
+                {
+                    return currentUser;
+                }
+            }
+            return null;
         }
         private string GenerateToken(string Username)
         {

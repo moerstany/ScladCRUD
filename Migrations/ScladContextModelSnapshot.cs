@@ -270,51 +270,6 @@ namespace ScladCRUD.Migrations
                     b.ToTable("catalog1");
                 });
 
-            modelBuilder.Entity("ScladCRUD.Models.Client1", b =>
-                {
-                    b.Property<int>("IdClient")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasColumnName("id_client");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityAlwaysColumn(b.Property<int>("IdClient"));
-
-                    b.Property<string>("Avatar")
-                        .IsRequired()
-                        .HasMaxLength(900)
-                        .HasColumnType("character varying(900)")
-                        .HasColumnName("avatar");
-
-                    b.Property<string>("ClientName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)")
-                        .HasColumnName("client_name");
-
-                    b.Property<string>("Parol")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
-                        .HasColumnName("parol");
-
-                    b.Property<string>("Post")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("character varying(255)")
-                        .HasColumnName("post");
-
-                    b.Property<string>("Tel")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)")
-                        .HasColumnName("tel");
-
-                    b.HasKey("IdClient")
-                        .HasName("client1_pkey");
-
-                    b.ToTable("client1");
-                });
-
             modelBuilder.Entity("ScladCRUD.Models.Manager1", b =>
                 {
                     b.Property<int>("IdManager")
@@ -401,8 +356,6 @@ namespace ScladCRUD.Migrations
 
                     b.HasKey("IdOrder")
                         .HasName("order1_pkey");
-
-                    b.HasIndex("IdClient");
 
                     b.HasIndex("IdProduct");
 
@@ -519,26 +472,13 @@ namespace ScladCRUD.Migrations
 
             modelBuilder.Entity("ScladCRUD.Models.Order1", b =>
                 {
-                    b.HasOne("ScladCRUD.Models.Client1", "IdClientNavigation")
-                        .WithMany("Order1")
-                        .HasForeignKey("IdClient")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .HasConstraintName("order1_id_client_fkey");
-
                     b.HasOne("ScladCRUD.Models.Product1", "IdProductNavigation")
                         .WithMany("Order1")
                         .HasForeignKey("IdProduct")
                         .OnDelete(DeleteBehavior.Restrict)
                         .HasConstraintName("order1_id_product_fkey");
 
-                    b.Navigation("IdClientNavigation");
-
                     b.Navigation("IdProductNavigation");
-                });
-
-            modelBuilder.Entity("ScladCRUD.Models.Client1", b =>
-                {
-                    b.Navigation("Order1");
                 });
 
             modelBuilder.Entity("ScladCRUD.Models.Product1", b =>

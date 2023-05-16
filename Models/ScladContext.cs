@@ -23,7 +23,7 @@ namespace ScladCRUD.Models
         }
 
         public  DbSet<Catalog1> Catalog1 { get; set; }
-        public  DbSet<Client1> Client1 { get; set; }
+        
         public  DbSet<Manager1> Manager1 { get; set; }
         public  DbSet<Order1> Order1 { get; set; }
         public  DbSet<Product1> Product1 { get; set; }
@@ -73,13 +73,7 @@ namespace ScladCRUD.Models
                     .HasConstraintName("catalog1_id_product_fkey");
             });
 
-            modelBuilder.Entity<Client1>(entity =>
-            {
-                entity.HasKey(e => e.IdClient)
-                    .HasName("client1_pkey");
-
-                entity.Property(e => e.IdClient).UseIdentityAlwaysColumn();
-            });
+            
 
             modelBuilder.Entity<Manager1>(entity =>
             {
@@ -94,11 +88,7 @@ namespace ScladCRUD.Models
                 entity.HasKey(e => e.IdOrder)
                     .HasName("order1_pkey");
 
-                entity.HasOne(d => d.IdClientNavigation)
-                    .WithMany(p => p.Order1)
-                    .HasForeignKey(d => d.IdClient)
-                    .OnDelete(DeleteBehavior.Restrict)
-                    .HasConstraintName("order1_id_client_fkey");
+                
 
                 entity.HasOne(d => d.IdProductNavigation)
                     .WithMany(p => p.Order1)

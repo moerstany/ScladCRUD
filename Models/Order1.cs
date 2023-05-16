@@ -33,9 +33,7 @@ namespace ScladCRUD.Models
         [Column("qantity")]
         public int Qantity { get; set; }
 
-        [ForeignKey("IdClient")]
-        [InverseProperty("Order1")]
-        public virtual Client1 IdClientNavigation { get; set; }
+       
         [ForeignKey("IdProduct")]
         [InverseProperty("Order1")]
         public virtual Product1 IdProductNavigation { get; set; }

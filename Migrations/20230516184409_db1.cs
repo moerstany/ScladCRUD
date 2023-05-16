@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace ScladCRUD.Migrations
 {
-    public partial class db : Migration
+    public partial class db1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -72,56 +72,7 @@ namespace ScladCRUD.Migrations
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "client1",
-                columns: table => new
-                {
-                    id_client = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityAlwaysColumn),
-                    client_name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    post = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
-                    tel = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
-                    parol = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    avatar = table.Column<string>(type: "character varying(900)", maxLength: 900, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("client1_pkey", x => x.id_client);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "manager1",
-                columns: table => new
-                {
-                    id_manager = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityAlwaysColumn),
-                    manager_name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    post = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
-                    tel = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
-                    parol = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    avatar = table.Column<string>(type: "character varying(900)", maxLength: 900, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("manager1_pkey", x => x.id_manager);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "product1",
-                columns: table => new
-                {
-                    id_product = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityAlwaysColumn),
-                    product_name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    articul = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    cost = table.Column<int>(type: "integer", nullable: false),
-                    product_pic = table.Column<string>(type: "character varying(900)", maxLength: 900, nullable: true),
-                    margin = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("product1_pkey", x => x.id_product);
-                });
+           
 
             migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
@@ -229,61 +180,7 @@ namespace ScladCRUD.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "catalog1",
-                columns: table => new
-                {
-                    id_catalog = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    description = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true),
-                    id_product = table.Column<int>(type: "integer", nullable: true),
-                    Product1IdProduct = table.Column<int>(type: "integer", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("catalog1_pkey", x => x.id_catalog);
-                    table.ForeignKey(
-                        name: "catalog1_id_product_fkey",
-                        column: x => x.id_product,
-                        principalTable: "product1",
-                        principalColumn: "id_product",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_catalog1_product1_Product1IdProduct",
-                        column: x => x.Product1IdProduct,
-                        principalTable: "product1",
-                        principalColumn: "id_product");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "order1",
-                columns: table => new
-                {
-                    id_order = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    id_product = table.Column<int>(type: "integer", nullable: true),
-                    id_client = table.Column<int>(type: "integer", nullable: true),
-                    client_name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    product_name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    articul = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    qantity = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("order1_pkey", x => x.id_order);
-                    table.ForeignKey(
-                        name: "order1_id_client_fkey",
-                        column: x => x.id_client,
-                        principalTable: "client1",
-                        principalColumn: "id_client",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "order1_id_product_fkey",
-                        column: x => x.id_product,
-                        principalTable: "product1",
-                        principalColumn: "id_product",
-                        onDelete: ReferentialAction.Restrict);
-                });
+            
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -322,25 +219,8 @@ namespace ScladCRUD.Migrations
                 column: "NormalizedUserName",
                 unique: true);
 
-            migrationBuilder.CreateIndex(
-                name: "IX_catalog1_id_product",
-                table: "catalog1",
-                column: "id_product");
+           
 
-            migrationBuilder.CreateIndex(
-                name: "IX_catalog1_Product1IdProduct",
-                table: "catalog1",
-                column: "Product1IdProduct");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_order1_id_client",
-                table: "order1",
-                column: "id_client");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_order1_id_product",
-                table: "order1",
-                column: "id_product");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -360,14 +240,8 @@ namespace ScladCRUD.Migrations
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
 
-            migrationBuilder.DropTable(
-                name: "catalog1");
+            
 
-            migrationBuilder.DropTable(
-                name: "manager1");
-
-            migrationBuilder.DropTable(
-                name: "order1");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -375,11 +249,7 @@ namespace ScladCRUD.Migrations
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
 
-            migrationBuilder.DropTable(
-                name: "client1");
-
-            migrationBuilder.DropTable(
-                name: "product1");
+            
         }
     }
 }
