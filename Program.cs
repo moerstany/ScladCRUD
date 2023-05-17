@@ -7,9 +7,7 @@ global using System.Security.Cryptography;
 global using Microsoft.IdentityModel.Tokens;
 global using System.Text;
 global using Microsoft.AspNetCore.Authentication.JwtBearer;
-
-
-
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 string connection = builder.Configuration.GetConnectionString("ApiConnection");
@@ -19,6 +17,16 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<ScladContext>(options =>
 options.UseNpgsql(connection));
+
+builder.Services.AddIdentity<IdentityUser,IdentityRole>(options =>
+{
+    options.SignIn.RequireConfirmedAccount = false;
+    options.Password.RequireDigit = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireLowercase = false;
+}
+).AddEntityFrameworkStores<ScladContext>();
 
 var tkConf = builder.Configuration.GetSection("Jwt");
 var tokenValidationParameters = new TokenValidationParameters

@@ -5,10 +5,14 @@ using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace ScladCRUD.Controllers
-{
+{/*
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     
+    [ApiController]
     public class LoginController : ControllerBase
     {
         private readonly IConfiguration _config;
@@ -21,6 +25,11 @@ namespace ScladCRUD.Controllers
             _signInManager = signInManager;
             _userManager = userManager;
         }
+        
+        
+
+       
+
         [AllowAnonymous]
         [HttpPost]
         public IActionResult Login([FromBody] LoginModel login)
@@ -32,6 +41,7 @@ namespace ScladCRUD.Controllers
                 return Ok(token);
             }
             return BadRequest("Login Failed");
+            
         }
         private async Task <IdentityUser?> Authenticate (string userName, string Password)
         {
@@ -67,5 +77,5 @@ namespace ScladCRUD.Controllers
         {
             return Ok("Token ydacno sozdan");
         }
-    }
+    }*/
 }

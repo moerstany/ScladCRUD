@@ -34,6 +34,7 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
+    <Folder Include="Views\Новая папка\" />
   </ItemGroup>
 
 </Project>
